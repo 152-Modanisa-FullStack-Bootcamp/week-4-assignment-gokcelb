@@ -1,0 +1,80 @@
+{
+  "consumer": {
+    "name": "vue-app"
+  },
+  "provider": {
+    "name": "vue-service"
+  },
+  "interactions": [
+    {
+      "description": "A request for videos data",
+      "providerState": "Successfully retrieved videos data",
+      "request": {
+        "method": "GET",
+        "path": "/videos"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "id": 1,
+            "videoAddress": "address",
+            "coverImage": "img",
+            "hoverImage": "img",
+            "ownerImage": "img",
+            "ownerName": "name",
+            "title": "title",
+            "viewCount": 100,
+            "publishDateInMonth": 4,
+            "description": "desc"
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].id": {
+            "match": "type"
+          },
+          "$.body[*].videoAddress": {
+            "match": "type"
+          },
+          "$.body[*].coverImage": {
+            "match": "type"
+          },
+          "$.body[*].hoverImage": {
+            "match": "type"
+          },
+          "$.body[*].ownerImage": {
+            "match": "type"
+          },
+          "$.body[*].ownerName": {
+            "match": "type"
+          },
+          "$.body[*].title": {
+            "match": "type"
+          },
+          "$.body[*].viewCount": {
+            "match": "type"
+          },
+          "$.body[*].publishDateInMonth": {
+            "match": "type"
+          },
+          "$.body[*].description": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
