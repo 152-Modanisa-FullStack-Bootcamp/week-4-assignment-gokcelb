@@ -1,2 +1,3 @@
 vue-app/.gitignore
 acceptance/.gitignore
+.idea
