@@ -12,6 +12,7 @@ describe("Home.vue", () => {
         }
         const $store = {
             getters,
+            dispatch: jest.fn(),
         }
 
         const wrapper = mount(Home, {
