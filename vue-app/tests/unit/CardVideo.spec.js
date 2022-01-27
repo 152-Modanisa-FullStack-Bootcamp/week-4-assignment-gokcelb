@@ -15,5 +15,8 @@ describe("CardVideo.vue", () => {
 
         const image = wrapper.find("img")
         expect(image.exists()).toBeTruthy()
+
+        const title = wrapper.find("#title")
+        expect(title.exists()).toBeTruthy()
     })
 })

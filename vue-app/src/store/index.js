@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    SET_VIDEOS(state, data) {
+    setVideos(state, data) {
       state.videos = data
     },
   },
@@ -23,7 +23,7 @@ export default new Vuex.Store({
     async loadVideos ({ commit }) {
       try {
         const data = await api.pullVideos()
-        commit("SET_VIDEOS", data)
+        commit("setVideos", data)
       } catch (e) {
         console.error(e)
       }
