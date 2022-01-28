@@ -13,3 +13,8 @@ Feature: Video Site Project
     Given User is on Video Site Project's HomePage
     When User clicks "Vue JS Crash Course" video
     Then User should see watch url correctly
+
+  Scenario: User should see video image change on hover
+    Given User is on Video Site Project's HomePage
+    When User hovers "Vue.js Explained in 100 Seconds" video
+    Then User should see hovered image
