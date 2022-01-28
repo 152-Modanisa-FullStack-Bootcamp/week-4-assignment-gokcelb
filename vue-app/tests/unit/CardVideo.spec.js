@@ -2,21 +2,37 @@ import {shallowMount} from "@vue/test-utils"
 import CardVideo from "../../src/components/CardVideo"
 
 describe("CardVideo.vue", () => {
-    test("Rendered correctly check", () => {
-        const wrapper = shallowMount(CardVideo, {
+    let wrapper
+
+    beforeEach(() => {
+        const $router = {
+            push: jest.fn()
+        }
+
+        wrapper = shallowMount(CardVideo, {
             propsData: {
                 video: {}
+            },
+            mocks: {
+                $router
             }
         })
-        expect(wrapper.exists()).toBeTruthy()
-
+    })
+    test("Rendered correctly check", () => {
         const card = wrapper.find("#card-video")
-        expect(card.exists()).toBeTruthy()
-
         const image = wrapper.find("img")
-        expect(image.exists()).toBeTruthy()
-
         const title = wrapper.find("#title")
+
+        expect(wrapper.exists()).toBeTruthy()
+        expect(card.exists()).toBeTruthy()
+        expect(image.exists()).toBeTruthy()
         expect(title.exists()).toBeTruthy()
+    })
+
+    test("Image click event works correctly", async () => {
+        const image = wrapper.find("img")
+        await image.trigger("click")
+
+        expect(wrapper.vm.$router.push).toBeCalled()
     })
 })
