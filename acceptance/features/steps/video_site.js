@@ -64,7 +64,7 @@ When(/^User hovers "([^"]*)" video$/, async function (videoName) {
     const srcJSHandleBefore = await imageElement.getProperty("src")
     this.srcAttrBefore = await srcJSHandleBefore.jsonValue()
 
-    await desiredVideo.hover()
+    await imageElement.hover()
 
     const srcJSHandleAfter = await imageElement.getProperty("src")
     this.srcAttrAfter = await srcJSHandleAfter.jsonValue()
