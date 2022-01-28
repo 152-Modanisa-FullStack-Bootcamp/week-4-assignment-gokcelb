@@ -36,7 +36,7 @@ When(/^User clicks "([^"]*)" video$/, async function (videoName) {
         },
         videoName
     )
-    await this.page.waitForNavigation({timeout: 5000})
+    await this.page.waitForSelector("#watchid")
     this.desiredVideoID = await this.page.$eval(
         "#watchid",
         id => id.textContent
@@ -44,5 +44,5 @@ When(/^User clicks "([^"]*)" video$/, async function (videoName) {
 });
 
 Then(/^User should see watch url correctly$/, async function () {
-   await checkUrl.call(this, false, `?id=${this.desiredVideoID}`)
+   await checkUrl.call(this, false, `http://localhost:8080/watch?id=${this.desiredVideoID}`)
 });
