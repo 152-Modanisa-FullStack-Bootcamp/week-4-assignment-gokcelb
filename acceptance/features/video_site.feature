@@ -8,3 +8,8 @@ Feature: Video Site Project
       | Vue.js Course for Beginners [2021 Tutorial] |
       | Vue JS Crash Course |
       | Vue 3 - What's New? What Changed? |
+
+  Scenario: User should navigate to watch page when they click a video
+    Given User is on Video Site Project's HomePage
+    When User clicks "Vue JS Crash Course" video
+    Then User should see watch url correctly
