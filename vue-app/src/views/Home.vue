@@ -1,5 +1,5 @@
 <template>
-  <div id="#home">
+  <div id="home">
     <card-video
         v-for="video in videos"
         :key="video.id"
