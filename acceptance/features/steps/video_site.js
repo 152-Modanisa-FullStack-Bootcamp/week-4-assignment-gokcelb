@@ -8,7 +8,7 @@ Given(/^User goes to Video Site Project's HomePage$/, async function () {
 });
 
 When(/^Page is loaded$/, async function () {
-    await this.page.waitForTimeout(5000)
+    await this.page.waitForSelector("#home")
 });
 
 Then(/^User can see some video titles such as$/, async function (videoTitles) {
@@ -23,7 +23,7 @@ Then(/^User can see some video titles such as$/, async function (videoTitles) {
 
 Given(/^User is on Video Site Project's HomePage$/, async function () {
     await openUrl.call(this, "/")
-    await this.page.waitForTimeout(5000)
+    await this.page.waitForSelector("#home")
 });
 
 When(/^User clicks "([^"]*)" video$/, async function (videoName) {
@@ -36,15 +36,15 @@ When(/^User clicks "([^"]*)" video$/, async function (videoName) {
         },
         videoName
     )
-    await this.page.waitForSelector("#watchid")
-    this.desiredVideoID = await this.page.$eval(
-        "#watchid",
-        id => id.textContent
-    )
 });
 
 Then(/^User should see watch url correctly$/, async function () {
-   await checkUrl.call(this, false, `http://localhost:8080/watch?id=${this.desiredVideoID}`)
+    await this.page.waitForSelector("#watchid")
+    const desiredVideoID = await this.page.$eval(
+        "#watchid",
+        id => id.textContent
+    )
+   await checkUrl.call(this, false, `http://localhost:8080/watch?id=${desiredVideoID}`)
 });
 
 When(/^User hovers "([^"]*)" video$/, async function (videoName) {
@@ -59,17 +59,15 @@ When(/^User hovers "([^"]*)" video$/, async function (videoName) {
             }
         }
     )
-    const imageElement = await desiredVideo.$("img")
-
-    const srcJSHandleBefore = await imageElement.getProperty("src")
+    this.imageElement = await desiredVideo.$("img")
+    const srcJSHandleBefore = await this.imageElement.getProperty("src")
     this.srcAttrBefore = await srcJSHandleBefore.jsonValue()
-
-    await imageElement.hover()
-
-    const srcJSHandleAfter = await imageElement.getProperty("src")
-    this.srcAttrAfter = await srcJSHandleAfter.jsonValue()
+    await this.imageElement.hover()
 });
 
-Then(/^User should see hovered image$/, function () {
-    assert.notEqual(this.srcAttrAfter, this.srcAttrBefore)
+Then(/^User should see hovered image$/, async function () {
+    const srcJSHandleAfter = await this.imageElement.getProperty("src")
+    const srcAttrAfter = await srcJSHandleAfter.jsonValue()
+
+    assert.notEqual(srcAttrAfter, this.srcAttrBefore)
 });
