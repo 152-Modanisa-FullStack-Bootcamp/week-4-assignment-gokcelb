@@ -3,7 +3,9 @@ import Home from "../../src/views/Home"
 import CardVideo from "../../src/components/CardVideo"
 
 describe("Home.vue", () => {
-    test("Rendered correctly check", () => {
+    let wrapper
+
+    beforeEach(() => {
         const getters = {
             getVideos: [
                 {title: "title1"},
@@ -14,15 +16,21 @@ describe("Home.vue", () => {
             getters,
             dispatch: jest.fn(),
         }
-
-        const wrapper = mount(Home, {
+        wrapper = mount(Home, {
             mocks: {
                 $store,
             }
         })
-        expect(wrapper.exists()).toBeTruthy()
+    })
 
+    test("Rendered correctly check", () => {
         const cardVideoComponents = wrapper.findAllComponents(CardVideo)
+
+        expect(wrapper.exists()).toBeTruthy()
         expect(cardVideoComponents.length).toBe(2)
+    })
+
+    test("Functionality check", () => {
+        expect(wrapper.vm.$store.dispatch).toHaveBeenCalled()
     })
 })
