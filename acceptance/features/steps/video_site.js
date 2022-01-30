@@ -49,25 +49,25 @@ Then(/^User should see watch url correctly$/, async function () {
 
 When(/^User hovers "([^"]*)" video$/, async function (videoName) {
     const videoCards = await this.page.$$("#card-video")
-    const desiredVideo = videoCards.find(
-        async (videoCard) => {
-            const videoTitle = await videoCard.$("#title")
-            const titleJSHandle = await videoTitle.getProperty("innerHTML")
-            const titleText = await titleJSHandle.jsonValue()
-            if (titleText === videoName) {
-                return videoCard
-            }
+    let desiredVideo
+    for (let videoCard of videoCards) {
+        const videoTitle = await videoCard.$("#title")
+        const titleJSHandle = await videoTitle.getProperty("innerHTML")
+        const titleText = await titleJSHandle.jsonValue()
+        if (titleText === videoName) {
+            desiredVideo = videoCard
         }
-    )
+    }
     this.imageElement = await desiredVideo.$("img")
     const srcJSHandleBefore = await this.imageElement.getProperty("src")
     this.srcAttrBefore = await srcJSHandleBefore.jsonValue()
+    console.log(this.srcAttrBefore)
     await this.imageElement.hover()
 });
 
 Then(/^User should see hovered image$/, async function () {
     const srcJSHandleAfter = await this.imageElement.getProperty("src")
     const srcAttrAfter = await srcJSHandleAfter.jsonValue()
-
+    console.log(srcAttrAfter)
     assert.notEqual(srcAttrAfter, this.srcAttrBefore)
 });
